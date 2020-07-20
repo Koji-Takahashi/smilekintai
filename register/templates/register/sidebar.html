@@ -34,34 +34,15 @@
       <ul class="nav side-menu">
           <li>
               <a href="{% url 'register:index' %}">
-              <i class="fa fa-home"></i> HOME </a>
+              <i class="fa fa-home"></i> ホーム </a>
           </li>
 
           <li>
-              <a href="{% url 'register:comment_list' id=user.div %}"><i class="fa fa-street-view" aria-hidden="true"></i> Members </a>
+              <a href="{% url 'register:comment_list' id=user.div %}"><i class="fa fa-street-view" aria-hidden="true"></i> 社員マスタ </a>
           </li>
           <li>
-              <a href="{% url 'register:history' id=user.id %}"><i class="fa fa-calendar" aria-hidden="true"></i> History </a>
+              <a href="{% url 'register:history' id=user.id %}"><i class="fa fa-calendar" aria-hidden="true"></i> 勤怠履歴 </a>
           </li>
-
-            <li>
-                  <a href="https://toyo-group.co.jp/info"><i class="fa fa-book"></i> Blog </a>
-              </li>
-              <li>
-                  <a href="https://toyo-group.co.jp/staff/%e8%a5%bf%e6%9d%91"><i class="fa fa-users"></i> Staff </a>
-              </li>
-            <li>
-              <a href="https://quest.toyo-group.co.jp/"><i><img src="/static/register/img/QUEST_icon.png" width="15%" height="15%"> </i>QUEST + </a>
-            </li>
-            <li>
-                <a href="https://routemaster.jp/"><i><img src="/static/register/img/logo_RouteMaster.png" width="25%" height="25%"></i> Route Master</a>
-            </li>
-            <li>
-                <a href="https://toyo-group.co.jp/inquiry"><i class="fa fa-comment"></i> Inquiry</a>
-            </li>
-<!--        <li><a href="#"><i class="fa fa-edit"></i> 座席表-->
-<!--        </a>-->
-<!--        </li>-->
       </ul>
     </div>
     </div>
