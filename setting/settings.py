@@ -152,7 +152,7 @@ if not DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku  # 追加
     # django_heroku.settings(locals())  # 追加
-    del DATABASES['default']['OPTIONS']['sslmode']
+    del DATABASES['default']['OPTIONS']['sslmode']  # MySQL用
     EMAIL_HOST = os.environ['EMAIL_HOST']
     EMAIL_PORT = os.environ['EMAIL_PORT']
     EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
