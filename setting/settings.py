@@ -79,8 +79,8 @@ WSGI_APPLICATION = 'setting.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.mysql',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'name',
         'USER': 'user',
         'PASSWORD': '',
@@ -151,8 +151,8 @@ except ImportError:
 if not DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku  # 追加
-    django_heroku.settings(locals())  # 追加
-    # del DATABASES['default']['OPTIONS']['sslmode']
+    # django_heroku.settings(locals())  # 追加
+    del DATABASES['default']['OPTIONS']['sslmode']
     EMAIL_HOST = os.environ['EMAIL_HOST']
     EMAIL_PORT = os.environ['EMAIL_PORT']
     EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
