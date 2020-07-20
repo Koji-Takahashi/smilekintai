@@ -1,0 +1,48 @@
+{% extends "register/base.html" %}
+{% load i18n static %}
+{% block title %}勤務状況管理{% endblock title %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div>
+                    <h1 class="mt-4 border-bottom"> ステータス変更 </h1>
+                      {% if messages %}
+                      <ul>
+                        {% for message in messages %}
+                        <li class="caution">{{ message }}</li>
+                        {% endfor %}
+                      </ul>
+                      {% endif %}
+                      <div class="clearfix"></div>
+                          <h1 id="time"></h1>
+                            <script>
+                            time();
+                            function time(){
+                                var now = new Date();
+                                document.getElementById("time").innerHTML = now.toLocaleString();
+                            }
+                            setInterval('time()',1000);
+                            </script>
+                        <div class="clearfix"></div>
+                        <table class="col-md-12 col-sm-12 col-xs-12">
+                            <tr>
+                                <td><a  href="{% url 'register:status' pk=user.id status='出勤' %}"><button class="btn-success box">出勤</button></a></td>
+                                <td><a  href="{% url 'register:status' pk=user.id status='退勤' %}"><button class="btn-success box">退勤</button></a></td>
+                            </tr>
+                            <tr>
+                                <td><a  href="{% url 'register:status' pk=user.id status='リモート出勤' %}"><button class="btn-success box">リモート出勤</button></a></td>
+                                <td><a  href="{% url 'register:status' pk=user.id status='リモート退勤' %}"><button class="btn-success box">リモート退勤</button></a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="clearfix"></div>
+</div>
+{% endblock content %}

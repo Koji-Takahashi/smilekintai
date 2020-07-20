@@ -1,0 +1,50 @@
+{% extends 'register/base.html' %}
+{% block stylesheets %}
+  {{ block.super }}
+  <link href="/static/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div>
+                        <h2>ユーザー情報</h2>
+                        {% if messages %}
+                          <ul>
+                            {% for message in messages %}
+                            <li class="caution">{{ message }}</li>
+                            {% endfor %}
+                          </ul>
+                          {% endif %}
+                    </div>
+                    {% if user.slack_name %}
+                        <a href="{% url 'register:set_slack_id' id=user.id name=user.slack_name %}"><button class="btn btn-primary"> Get Slack id </button></a>
+                    {% endif %}
+                <form action="{% url 'register:user_update' pk=user.id %}" method="POST">
+                    {{ form.non_field_errors }}
+                    <table class="table">
+                        <tbody>
+                            {% for field in form %}
+                                <tr>
+                                    <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                                    <td>{{ field }} {{ field.errors }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success btn-lg" >送信</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

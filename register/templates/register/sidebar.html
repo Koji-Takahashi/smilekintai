@@ -1,0 +1,87 @@
+<div class="left_col scroll-view">
+<!--  <div class="navbar nav_title" style="border: 0;">-->
+<!--&lt;!&ndash;    <a href="#" class="site_title">&ndash;&gt;-->
+<!--&lt;!&ndash;      <img src="/static/register/img/logo.png" alt="..." width="70%" height="80%" style="text-align: center;">&ndash;&gt;-->
+
+<!--      <br>-->
+<!--&lt;!&ndash;      <span>株式会社 東洋</span>&ndash;&gt;-->
+<!--&lt;!&ndash;    </a>&ndash;&gt;-->
+<!--  </div>-->
+
+  <div class="clearfix"></div>
+
+  <!-- menu profile quick info -->
+  <div class="profile clearfix">
+    <div class="profile_pic" style="padding-left: 5px; margin-bottom: 50px;">
+<!--      <i class="fa fa-user-circle-o" aria-hidden="true"></i>-->
+        <img src="/static/register/img/smile.png" alt="..." width="80%" height="80%">
+        <p> Smile in IT! </p>
+<!--        <img src="/static/register/img/smileinit.png" alt="..." width="80%" height="80%" style="">-->
+    </div>
+        <div class="profile_info">
+          <span>Welcome,</span>
+          <h2>{{ user.last_name }} {{ user.first_name }}</h2>
+        </div>
+  </div>
+  <!-- /menu profile quick info -->
+
+  <br />
+
+  <!-- sidebar menu -->
+  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+      <h3>General</h3>
+      <ul class="nav side-menu">
+          <li>
+              <a href="{% url 'register:index' %}">
+              <i class="fa fa-home"></i> HOME </a>
+          </li>
+
+          <li>
+              <a href="{% url 'register:comment_list' id=user.div %}"><i class="fa fa-street-view" aria-hidden="true"></i> Members </a>
+          </li>
+          <li>
+              <a href="{% url 'register:history' id=user.id %}"><i class="fa fa-calendar" aria-hidden="true"></i> History </a>
+          </li>
+
+            <li>
+                  <a href="https://toyo-group.co.jp/info"><i class="fa fa-book"></i> Blog </a>
+              </li>
+              <li>
+                  <a href="https://toyo-group.co.jp/staff/%e8%a5%bf%e6%9d%91"><i class="fa fa-users"></i> Staff </a>
+              </li>
+            <li>
+              <a href="https://quest.toyo-group.co.jp/"><i><img src="/static/register/img/QUEST_icon.png" width="15%" height="15%"> </i>QUEST + </a>
+            </li>
+            <li>
+                <a href="https://routemaster.jp/"><i><img src="/static/register/img/logo_RouteMaster.png" width="25%" height="25%"></i> Route Master</a>
+            </li>
+            <li>
+                <a href="https://toyo-group.co.jp/inquiry"><i class="fa fa-comment"></i> Inquiry</a>
+            </li>
+<!--        <li><a href="#"><i class="fa fa-edit"></i> 座席表-->
+<!--        </a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+    </div>
+  </div>
+  <!-- /sidebar menu -->
+
+  <!-- /menu footer buttons -->
+  <div class="sidebar-footer hidden-small">
+<!--    <a data-toggle="tooltip" data-placement="top" title="Settings">-->
+<!--      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>-->
+<!--    </a>-->
+<!--    <a data-toggle="tooltip" data-placement="top" title="FullScreen">-->
+<!--      <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>-->
+<!--    </a>-->
+<!--    <a data-toggle="tooltip" data-placement="top" title="Lock">-->
+<!--      <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>-->
+<!--    </a>-->
+    <a data-toggle="tooltip" data-placement="top" title="Logout" href="{% url 'register:logout' %}">
+      <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+    </a>
+  </div>
+  <!-- /menu footer buttons -->
+</div>

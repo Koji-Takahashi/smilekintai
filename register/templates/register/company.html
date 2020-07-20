@@ -1,0 +1,113 @@
+{% extends 'register/base.html' %}
+{% block stylesheets %}
+  {{ block.super }}
+  <link href="/static/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                  <h3>Company Info <small></small></h3>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <div style="text-align:right;"><a href="{% url 'register:copy' id=user.div value=user.div %}"><button class="btn btn-primary btn-lg"> Key copy </button></a></div>
+                    <form action="{% url 'register:company' id=user.div %}" method="POST"  class="form-horizontal form-label-left" novalidate>
+                        <div class="item form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">会社名称 <span class="name">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="name" class="form-control col-md-7 col-xs-12" name="name" placeholder="会社名称" required="name" type="text" value="{{ form.name }}">
+                          </div>
+                        </div>
+
+                        <div class="item form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="postal_code">郵便番号 <span class="postal_code">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="postal_code" class="form-control col-md-7 col-xs-12" name="postal_code" placeholder="郵便番号" required="postal_code" type="text" value="{{ form.postal_code }}">
+                          </div>
+                        </div>
+
+                        <div class="item form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address">住所 <span class="address">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="address" class="form-control col-md-7 col-xs-12" name="address" placeholder="住所" required="address" type="text" value="{{ form.address }}">
+                          </div>
+                        </div>
+
+                        <div class="item form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tel">TEL <span class="tel">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="tel" class="form-control col-md-7 col-xs-12" name="tel" placeholder="電話番号" required="tel" type="text" value="{{ form.tel }}">
+                          </div>
+                        </div>
+
+                        <div class="item form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="memo">備考 <span class="memo">*</span>
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="memo" class="form-control col-md-7 col-xs-12" name="memo" placeholder="備考" required="memo" type="text" value="{{ form.memo }}">
+                          </div>
+                        </div>
+
+                        {% if user.is_superuser == 1 %}
+                            <br />
+                            <h3> Slack Settings </h3>
+                            <hr />
+                            <div class="item form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="API_key">Slack API Key <span class="API_key"></span>
+                              </label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="API_key" class="form-control col-md-7 col-xs-12" name="API_key" placeholder="Your API Key" required="API_key" type="text" value="{{ form.API_key }}">
+                              </div>
+                            </div>
+
+                            <div class="item form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="channelId">Channel API Key <span class="channelId"></span>
+                              </label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="channelId" class="form-control col-md-7 col-xs-12" name="channelId" placeholder="Your Channel API Key" required="channelId" type="text" value="{{ form.channelId }}">
+                              </div>
+                            </div>
+                        {% endif %}
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-lg">保存</button>
+                    </form>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ block.super }}
+  <!-- Datatables -->
+  <script src="/static/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="/static/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script src="/static/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script src="/static/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+  <script src="/static/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script src="/static/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="/static/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+  <script src="/static/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+  <script src="/static/vendors/jszip/dist/jszip.min.js"></script>
+  <script src="/static/vendors/pdfmake/build/pdfmake.min.js"></script>
+  <script src="/static/vendors/pdfmake/build/vfs_fonts.js"></script>
+{% endblock javascripts %}

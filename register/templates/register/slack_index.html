@@ -1,0 +1,61 @@
+{% extends "register/base.html" %}
+{% load i18n static %}
+{% block title %}勤務状況管理{% endblock title %}
+{% block stylesheets %}
+  {{ block.super }}
+  <link href="/static/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="boxContainer">
+                      <form action="" method="get">
+                        <a>検索条件 :</a>
+                        <input name="query" value="{{ request.GET.query }}" type="text" placeholder="名前検索">
+<!--                        <select name="key" value="{{ request.GET.query }}" type="text" placeholder="部署">-->
+<!--                            <option value="">部署名</option>-->
+<!--                          {% for d in departments %}-->
+<!--                            <option value={{ d.id }}>{{ d.name }}</option>-->
+<!--                          {% endfor %}-->
+                        </select>
+                        </input>
+                        <button type="submit"  class="btn btn-primary">検索</button>
+                    </form>
+                  </div>
+                    <hr>
+                  <div>
+                    <table class="table table-striped table-bordered center">
+                      <thead>
+                        <tr>
+                          <th scope="col">名前</th>
+                          <th scope="col">部署</th>
+                          <th scope="col">ステータス</th>
+                          <th scope="col">投稿時間</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for slack in slacks %}
+                        <tr>
+                          <td><a href="{% url 'register:user_edit' pk=slack.id id=slack.div %}">{{ slack.last_name }}{{ slack.first_name }}</a></td>
+                          <td>{{ slack.department }}</td>
+                          <td>{{ slack.status }}</td>
+                          <td>{{ slack.update_time }}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+{% endblock content %}
