@@ -39,5 +39,7 @@ urlpatterns = [
     path('history/<int:id>/', views.history, name='history'),  # 履歴
 
     # API
-    path('api/employee/', views.api_employee, name='api_employee'),  # 履歴
+    path('api/employee/', views.api_employee, name='api_employee'),  # 社員マスタ
+    path('api/history/', views.api_kintai, name='api_kintai'),
+
 ]

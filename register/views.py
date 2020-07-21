@@ -468,3 +468,51 @@ def api_employee(request):
     else:
         result = json_data
     return HttpResponse(result)
+
+def api_kintai(request):
+    code = request.GET.get('code')
+    term = request.GET.get('term')
+    if code == None or code == None:
+        result = 'Error:code error!'
+        return HttpResponse(result)
+
+    d = datetime.date.today()
+    date_start = d.replace(day=1)
+    end_day = calendar.monthrange(date_start.year,date_start.month)[1]
+    date_end = d.replace(day=end_day)
+    if term == None or term == 'None':
+        term = str(date_start.year) + str(date_start.month)
+
+    if User.objects.filter(div=code, is_active=1).exists():
+        user = User.objects.filter(div=code, is_active=1)
+    else:
+        user = ''
+    # JSON形式に変換する
+    json_data = []
+    if user:
+        for d in user:
+            data = "{'user_id' :'" + str( d.id ) \
+                   + "', 'first_name' : '" + str( d.first_name ) \
+                   + "', 'last_name' : '" + str(d.last_name) \
+                   + "', 'department' : '" + str( d.department ) + "'"
+            attend_data = Attendance.objects.filter(div=code, user_id=d.id, process_month=term)
+            id = d.id
+            # 履歴データ更新
+            create_calendar(date_start, date_end, id)
+            attend_json = []
+            for m in attend_data:
+                a_data = "{'attend_day' :'" + str( m.attend_day ) \
+                            + "', 'start_time' : '" + str( m.start_time ) \
+                            + "', 'end_time' : '" + str( m.end_time ) \
+                            + "', 'memo' : '" + str(m.memo) \
+                            + "'}"
+                attend_json.append(str(a_data))
+                print(attend_json)
+            data = str(data) + ",'detail_data':" +  str(attend_json) + "'}"
+            json_data.append(str(data))
+
+    if json_data == None or json_data == []:
+        result = 'Error:No Records'
+    else:
+        result = json_data
+    return HttpResponse(result)
