@@ -456,11 +456,11 @@ def api_employee(request):
     # JSON形式に変換する
     json_data = []
     for d in user:
-        data = "{'last_name' :'" + str( d.last_name ) \
-               + "', 'first_name' : '" + str( d.first_name ) \
-               + "', 'email' : '" + str( d.email ) \
-               + "', 'department' : '" + str( d.department ) \
-               + "', 'status' : '" + str( d.status ) + "'}"
+        data = '{"last_name" :"' + str( d.last_name ) \
+               + '", "first_name" : "' + str( d.first_name ) \
+               + '", "email" : "' + str( d.email ) \
+               + '", "department" : "' + str( d.department ) \
+               + '", "status" : "' + str( d.status ) + '"}'
         json_data.append(str(data))
 
     if json_data == None or json_data == []:
@@ -491,25 +491,24 @@ def api_kintai(request):
     json_data = []
     if user:
         for d in user:
-            data = "{'user_id' :'" + str( d.id ) \
-                   + "', 'first_name' : '" + str( d.first_name ) \
-                   + "', 'last_name' : '" + str(d.last_name) \
-                   + "', 'department' : '" + str( d.department ) + "'"
+            data = '{"user_id" :"' + str( d.id ) \
+                   + '", "first_name" : "' + str( d.first_name ) \
+                   + '", "last_name" : "' + str(d.last_name) \
+                   + '", "department" : "' + str( d.department ) + '"'
             attend_data = Attendance.objects.filter(div=code, user_id=d.id, process_month=term)
             id = d.id
             # 履歴データ更新
             create_calendar(date_start, date_end, id)
             attend_json = []
             for m in attend_data:
-                a_data = "{'attend_day' :'" + str( m.attend_day ) \
-                            + "', 'start_time' : '" + str( m.start_time ) \
-                            + "', 'end_time' : '" + str( m.end_time ) \
-                            + "', 'memo' : '" + str(m.memo) \
-                            + "'}"
+                a_data = '{"attend_day" :"' + str( m.attend_day ) \
+                            + '", "start_time" : "' + str( m.start_time ) \
+                            + '", "end_time" : "' + str( m.end_time ) \
+                            + '", "memo" : "' + str(m.memo) \
+                            + '"}'
                 attend_json.append(str(a_data))
-            data = str(data) + ",'detail_data':" +  str(attend_json) + "'}"
+            data = str(data) + ',"detail_data":' + str(attend_json) + '}'
             json_data.append(str(data))
-
     if json_data == None or json_data == []:
         result = 'Error:No Records'
     else:

@@ -30,7 +30,11 @@
                         <div class="clearfix"></div>
                         <table class="col-md-12 col-sm-12 col-xs-12">
                             <tr>
-                                <td><a  href="{% url 'register:status' pk=user.id status='出勤' %}"><button class="btn-success box">出勤</button></a></td>
+                                <td>
+                                    <a  href="{% url 'register:status' pk=user.id status='出勤' %}">
+                                    <button class="btn-success box" onclick="getPosition();">出勤</button>
+                                    </a>
+                                </td>
                                 <td><a  href="{% url 'register:status' pk=user.id status='退勤' %}"><button class="btn-success box">退勤</button></a></td>
                             </tr>
                             <tr>
