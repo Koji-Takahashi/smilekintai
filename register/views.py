@@ -475,15 +475,15 @@ def api_kintai(request):
         user = User.objects.filter(div=code, is_active=1)
     else:
         user = ''
-    # JSON形式に変換する
     if user:
         for d in user:
-            id = d.id
             # 履歴データ更新
+            id = d.id
             create_calendar(date_start, date_end, id)
 
-    if Attendance.objects.filter(div=code, process_month=term).exits():
+    if Attendance.objects.filter(div=code, process_month=term).exists():
         attend = Attendance.objects.filter(div=code, process_month=term)
+        # JSON形式に変換する
         json_data = serializers.serialize('json', attend)
     else:
         result = 'Error:No Records'
