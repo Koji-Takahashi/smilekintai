@@ -41,6 +41,10 @@ from django.db.models import Q # 検索
 import pyperclip # コピー
 from django.contrib import messages # メッセージ
 
+"""API response"""
+from django.http import HttpResponse
+import json
+
 # ページング処理
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def paginate_queryset(request, queryset, count):
@@ -438,3 +442,29 @@ def history(request, id=None):
     dict = {'data': data, 'header': header}
     return render(request,
                   'register/history.html', dict)  # テンプレートに渡すデータ
+
+def api_employee(request):
+    code = request.GET.get('code')
+    if code == None or code == None:
+        result = 'Error:code error!'
+        return HttpResponse(result)
+    if User.objects.filter(div=code,is_active=1).exists():
+        user = User.objects.filter(div=code,is_active=1)
+    else:
+        user = ''
+
+    # JSON形式に変換する
+    json_data = []
+    for d in user:
+        data = "{'last_name' :'" + str( d.last_name ) \
+               + "', 'first_name' : '" + str( d.first_name ) \
+               + "', 'email' : '" + str( d.email ) \
+               + "', 'department' : '" + str( d.department ) \
+               + "', 'status' : '" + str( d.status ) + "'}"
+        json_data.append(str(data))
+
+    if json_data == None or json_data == []:
+        result = 'Error:No Records'
+    else:
+        result = json_data
+    return HttpResponse(result)

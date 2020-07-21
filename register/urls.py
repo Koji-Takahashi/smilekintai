@@ -38,4 +38,6 @@ urlpatterns = [
     path('create_user/<str:id>/', views.create_slack_menber, name='create_slack_menber'),  # ユーザー作成
     path('history/<int:id>/', views.history, name='history'),  # 履歴
 
+    # API
+    path('api/employee/', views.api_employee, name='api_employee'),  # 履歴
 ]
