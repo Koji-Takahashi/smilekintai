@@ -507,7 +507,6 @@ def api_kintai(request):
                             + "', 'memo' : '" + str(m.memo) \
                             + "'}"
                 attend_json.append(str(a_data))
-                print(attend_json)
             data = str(data) + ",'detail_data':" +  str(attend_json) + "'}"
             json_data.append(str(data))
 
