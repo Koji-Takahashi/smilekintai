@@ -3,7 +3,7 @@ from .models import Message, User
 def update_status(div):
     users = User.objects.all()
     for i in users:
-        userId = i.slack_id
+        userId = i.id
         if Message.objects.filter(user_code=userId,div=div).exists():
             messages = Message.objects.filter(user_code=userId,div=div).order_by('encode_time').reverse()
             user = i
