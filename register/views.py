@@ -43,7 +43,8 @@ from django.contrib import messages # メッセージ
 
 """API response"""
 from django.http import HttpResponse
-import json
+from django.http.response import JsonResponse
+from django.core import serializers
 
 # ページング処理
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -449,26 +450,12 @@ def api_employee(request):
         result = 'Error:code error!'
         return HttpResponse(result)
     if User.objects.filter(div=code,is_active=1).exists():
-        user = User.objects.filter(div=code,is_active=1)
+        users = User.objects.filter(div=code,is_active=1)
+        json_data = serializers.serialize('json', users)
     else:
-        user = ''
-
-    # JSON形式に変換する
-    json_data = []
-    for d in user:
-        data = '{"user_id" :"' + str( d.id ) \
-               + '", "last_name" : "' + str( d.last_name ) \
-               + '", "first_name" : "' + str(d.first_name) \
-               + '", "email" : "' + str( d.email ) \
-               + '", "department" : "' + str( d.department ) \
-               + '", "status" : "' + str( d.status ) + '"}'
-        json_data.append(str(data))
-
-    if json_data == None or json_data == []:
-        result = 'Error:No Records'
-    else:
-        result = json_data
-    return HttpResponse(result)
+        result = 'Error:No Records!'
+        return HttpResponse(result)
+    return HttpResponse(json_data, content_type="text/json-comment-filtered")
 
 def api_kintai(request):
     code = request.GET.get('code')
@@ -489,29 +476,16 @@ def api_kintai(request):
     else:
         user = ''
     # JSON形式に変換する
-    json_data = []
     if user:
         for d in user:
-            data = '{"user_id" :"' + str( d.id ) \
-                   + '", "first_name" : "' + str( d.first_name ) \
-                   + '", "last_name" : "' + str(d.last_name) \
-                   + '", "department" : "' + str( d.department ) + '"'
-            attend_data = Attendance.objects.filter(div=code, user_id=d.id, process_month=term)
             id = d.id
             # 履歴データ更新
             create_calendar(date_start, date_end, id)
-            attend_json = []
-            for m in attend_data:
-                a_data = '{"attend_day" :"' + str( m.attend_day ) \
-                            + '", "start_time" : "' + str( m.start_time ) \
-                            + '", "end_time" : "' + str( m.end_time ) \
-                            + '", "memo" : "' + str(m.memo) \
-                            + '"}'
-                attend_json.append(str(a_data))
-            data = str(data) + ',"detail_data":' + str(attend_json) + '}'
-            json_data.append(str(data))
-    if json_data == None or json_data == []:
-        result = 'Error:No Records'
+
+    if Attendance.objects.filter(div=code, process_month=term).exits():
+        attend = Attendance.objects.filter(div=code, process_month=term)
+        json_data = serializers.serialize('json', attend)
     else:
-        result = json_data
-    return HttpResponse(result)
+        result = 'Error:No Records'
+        return HttpResponse(result)
+    return HttpResponse(json_data, content_type="text/json-comment-filtered")

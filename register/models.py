@@ -172,6 +172,5 @@ class Attendance(models.Model):
     div = models.CharField('自社区分', max_length=255, null=True, blank=True)
     process_month = models.CharField('処理月', max_length=6, null=True, blank=True)
 
-
     def __str__(self):
         return self.user_id
