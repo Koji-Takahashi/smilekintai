@@ -456,8 +456,9 @@ def api_employee(request):
     # JSON形式に変換する
     json_data = []
     for d in user:
-        data = '{"last_name" :"' + str( d.last_name ) \
-               + '", "first_name" : "' + str( d.first_name ) \
+        data = '{"user_id" :"' + str( d.id ) \
+               + '", "last_name" : "' + str( d.last_name ) \
+               + '", "first_name" : "' + str(d.first_name) \
                + '", "email" : "' + str( d.email ) \
                + '", "department" : "' + str( d.department ) \
                + '", "status" : "' + str( d.status ) + '"}'
