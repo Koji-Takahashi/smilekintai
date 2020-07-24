@@ -40,6 +40,7 @@ urlpatterns = [
 
     # API
     path('api/employee/', views.api_employee, name='api_employee'),  # 社員マスタ
-    path('api/history/', views.api_kintai, name='api_kintai'),
+    path('api/history/', views.api_kintai, name='api_kintai'), # 勤務情報
+    path('api/location/', views.api_location, name='api_location'), # ログイン履歴
 
 ]

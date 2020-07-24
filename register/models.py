@@ -174,3 +174,19 @@ class Attendance(models.Model):
 
     def __str__(self):
         return self.user_id
+
+class FMLOGIN(models.Model):
+    """FMLOGIN"""
+    longitude = models.CharField('経度', max_length=255, blank=True, null=True)
+    latitude = models.CharField('緯度', max_length=255, blank=True, null=True)
+    IP_address =  models.CharField('システムIPアドレス', max_length=255, blank=True, null=True)
+    NIC = models.CharField('システムNICアドレス', max_length=255, blank=True, null=True)
+    NPC = models.CharField('ネットワークプロトコル', max_length=255, blank=True, null=True)
+    SPH = models.CharField('システムプラットホーム', max_length=255, blank=True, null=True)
+    SV = models.CharField('システムバージョン', max_length=255, blank=True, null=True)
+    AV = models.CharField('アプリケーションバージョン', max_length=255, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.created_at)

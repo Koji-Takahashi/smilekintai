@@ -24,7 +24,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 """モデル・フォーム"""
-from .models import Message, Attendance, control, User
+from .models import Message, Attendance, control, User, FMLOGIN
 from .forms import ControlForm
 
 """関数"""
@@ -489,3 +489,27 @@ def api_kintai(request):
         result = 'Error:No Records'
         return HttpResponse(result)
     return HttpResponse(json_data, content_type="text/json-comment-filtered")
+
+def api_location(request):
+    # 引数を変数に格納
+    log = request.GET.get('log')
+    lat = request.GET.get('lat')
+    IP = request.GET.get('IP')
+    NIC = request.GET.get('NIC')
+    NPC = request.GET.get('NPC')
+    SPH = request.GET.get('SPH')
+    SV = request.GET.get('SV')
+    AV = request.GET.get('AV')
+
+    # レコード作成
+    object = FMLOGIN()
+    object.longitude = log
+    object.latitude = lat
+    object.IP_address = IP
+    object.NIC = NIC
+    object.NPC = NPC
+    object.SPH = SPH
+    object.SV = SV
+    object.AV = AV
+    object.save()
+    return HttpResponse('Success:Create Login LOG !')
