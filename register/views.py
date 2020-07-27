@@ -492,7 +492,7 @@ def api_kintai(request):
 
 def api_location(request):
     # 引数を変数に格納
-    lng = request.GET.get('log')
+    lng = request.GET.get('lng')
     lat = request.GET.get('lat')
     IP = request.GET.get('IP')
     NIC = request.GET.get('NIC')
