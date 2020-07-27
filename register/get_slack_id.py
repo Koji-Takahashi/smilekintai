@@ -3,6 +3,8 @@ from .models import User, control
 import requests
 
 url = "https://slack.com/api/users.list"
+
+
 def get_slack_id(id, name):
     div = User.objects.filter(pk=id)[0].div
     if control.objects.filter(code=div).exists():
