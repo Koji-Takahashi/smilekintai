@@ -49,16 +49,16 @@ djangorestframework==3.11.0
 # glob2==0.7
 # grpcio==1.28.1
 gunicorn==20.0.4
-h5py==2.10.0
-idna==2.7
-importlib-metadata==1.6.0
-ipykernel==5.1.4
-ipython==7.13.0
-ipython-genutils==0.2.0
-ipywidgets==7.5.1
-jedi==0.16.0
-Jinja2==2.11.1
-jmespath==0.10.0
+# h5py==2.10.0
+# idna==2.7
+# importlib-metadata==1.6.0
+# ipykernel==5.1.4
+# ipython==7.13.0
+# ipython-genutils==0.2.0
+# ipywidgets==7.5.1
+# jedi==0.16.0
+# Jinja2==2.11.1
+# jmespath==0.10.0
 json5==0.9.4
 jsonschema==3.2.0
 jupyter-client==6.1.3
