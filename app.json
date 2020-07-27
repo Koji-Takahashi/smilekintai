@@ -15,7 +15,6 @@
     "test": {
       "scripts": {
         "test-setup": "python manage.py collectstatic --noinput",
-        "test-setup": "python manage.py makemigration",
         "test-setup": "python manage.py migrate",
         "test": "python manage.py test"
       }
