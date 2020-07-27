@@ -39,15 +39,15 @@ django-filter==2.2.0
 django-heroku==0.3.1
 django-os-geocoder==0.1.6
 djangorestframework==3.11.0
-docopt==0.6.2
-docutils==0.15.2
-entrypoints==0.3
-filelock==3.0.12
-future==0.18.2
-gast==0.2.2
-geocoder==1.38.1
-glob2==0.7
-grpcio==1.28.1
+# docopt==0.6.2
+# docutils==0.15.2
+# entrypoints==0.3
+# filelock==3.0.12
+# future==0.18.2
+# gast==0.2.2
+# geocoder==1.38.1
+# glob2==0.7
+# grpcio==1.28.1
 gunicorn==20.0.4
 h5py==2.10.0
 idna==2.7
