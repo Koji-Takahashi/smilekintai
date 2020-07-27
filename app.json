@@ -1,5 +1,8 @@
 {
   "name": "Start on Heroku: Python",
+  "scripts": {
+    "postdeploy": "python manage.py migrate"
+  },
   "description": "A barebones Python app, which can easily be deployed to Heroku.",
   "image": "heroku/python",
   "repository": "https://github.com/Koji-Takahashi/smilekintai",
