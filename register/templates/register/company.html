@@ -19,7 +19,6 @@
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <div style="text-align:right;"><a href="{% url 'register:copy' id=user.div value=user.div %}"><button class="btn btn-primary btn-lg"> Key copy </button></a></div>
                     <form action="{% url 'register:company' id=user.div %}" method="POST"  class="form-horizontal form-label-left" novalidate>
                         <div class="item form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">会社名称 <span class="name">*</span>
