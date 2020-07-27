@@ -95,6 +95,7 @@ class MySetPasswordForm(SetPasswordForm):
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
 
+
 class ControlForm(forms.ModelForm):
 
     class Meta:
