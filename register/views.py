@@ -285,12 +285,14 @@ def create_slack_menber(request, div):
     create_user(div);
     return HttpResponse('Create User')
 
+@login_required()
 def index(request):
     """TOPメニュー"""
     return render(request,
                   'register/index.html',  # 使用するテンプレート
                     )  # テンプレートに渡すデータ
 
+@login_required()
 def set_slack_id(request, id=None, name=None):
     """slack id 取得"""
     if id:
@@ -316,6 +318,7 @@ def set_slack_id(request, id=None, name=None):
 
     return redirect('register:user_update', id)
 
+@login_required()
 def company(request, id=None, value=None):
     """会社情報入力"""
     if value: # valueがある場合会社コードをコピーする。
@@ -431,6 +434,7 @@ def user_del(request, pk):
 
     return redirect('register:user_list')
 
+@login_required()
 def history(request, id=None):
     d = datetime.date.today()
     date_start = d.replace(day=1)

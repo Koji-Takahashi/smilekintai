@@ -26,6 +26,8 @@ MEDIA_URL = '/media/file/'
 
 DEBUG = False
 
+SESSION_COOKIE_AGE = 600 # on hour in seconds
+
 ALLOWED_HOSTS = ['*']
 
 
