@@ -492,7 +492,7 @@ def api_kintai(request):
 
 def api_location(request):
     # 引数を変数に格納
-    log = request.GET.get('log')
+    lng = request.GET.get('log')
     lat = request.GET.get('lat')
     IP = request.GET.get('IP')
     NIC = request.GET.get('NIC')
@@ -503,7 +503,7 @@ def api_location(request):
 
     # レコード作成
     object = FMLOGIN()
-    object.longitude = log
+    object.longitude = lng
     object.latitude = lat
     object.IP_address = IP
     object.NIC = NIC
