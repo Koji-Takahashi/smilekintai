@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'django.contrib.humanize',
-    'storages', # AWS-S3 データ使用
 ]
 
 MIDDLEWARE = [
