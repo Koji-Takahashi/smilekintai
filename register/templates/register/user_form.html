@@ -27,7 +27,7 @@
                     {% if user.slack_name %}
                         <a href="{% url 'register:set_slack_id' id=user.id name=user.slack_name %}"><button class="btn btn-primary"> Get Slack id </button></a>
                     {% endif %}
-                <form action="{% url 'register:user_update' pk=user.id %}" method="POST">
+                <form action="{% url 'register:user_update' pk=user.id %}" method="POST" enctype="multipart/form-data">
                     {{ form.non_field_errors }}
                     <table class="table">
                         <tbody>
