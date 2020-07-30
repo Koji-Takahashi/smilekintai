@@ -169,12 +169,10 @@ class OnlyYouMixin(UserPassesTestMixin):
         user = self.request.user
         return user.pk == self.kwargs['pk'] or user.is_superuser
 
-
 class UserDetail(OnlyYouMixin, generic.DetailView):
     """ユーザーの詳細ページ"""
     model = User
     template_name = 'register/user_detail.html'  # デフォルトユーザーを使う場合に備え、きちんとtemplate名を書く
-
 
 class UserUpdate(OnlyYouMixin, generic.UpdateView):
     """ユーザー情報更新ページ"""
@@ -185,18 +183,15 @@ class UserUpdate(OnlyYouMixin, generic.UpdateView):
     def get_success_url(self):
         return resolve_url('register:user_detail', pk=self.kwargs['pk'])
 
-
 class PasswordChange(PasswordChangeView):
     """パスワード変更ビュー"""
     form_class = MyPasswordChangeForm
     success_url = reverse_lazy('register:password_change_done')
     template_name = 'register/password_change.html'
 
-
 class PasswordChangeDone(PasswordChangeDoneView):
     """パスワード変更しました"""
     template_name = 'register/password_change_done.html'
-
 
 class PasswordReset(PasswordResetView):
     """パスワード変更用URLの送付ページ"""
@@ -206,11 +201,9 @@ class PasswordReset(PasswordResetView):
     form_class = MyPasswordResetForm
     success_url = reverse_lazy('register:password_reset_done')
 
-
 class PasswordResetDone(PasswordResetDoneView):
     """パスワード変更用URLを送りましたページ"""
     template_name = 'register/password_reset_done.html'
-
 
 class PasswordResetConfirm(PasswordResetConfirmView):
     """新パスワード入力ページ"""
@@ -218,11 +211,9 @@ class PasswordResetConfirm(PasswordResetConfirmView):
     success_url = reverse_lazy('register:password_reset_complete')
     template_name = 'register/password_reset_confirm.html'
 
-
 class PasswordResetComplete(PasswordResetCompleteView):
     """新パスワード設定しましたページ"""
     template_name = 'register/password_reset_complete.html'
-
 
 class EmailChange(LoginRequiredMixin, generic.FormView):
     """メールアドレスの変更"""
@@ -361,7 +352,7 @@ def status(request, pk, status):
 
     """TOPメニュー"""
     return render(request,
-                  'register/index.html',  )  # テンプレートに渡すデータ
+                  'register/index.html', )  # テンプレートに渡すデータ
 
 @login_required()
 def comment_list(request, id=None):
