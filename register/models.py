@@ -53,8 +53,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     update_time = models.DateTimeField('投稿時間', null=True, blank=True)
     department = models.CharField('部署', max_length=255, null=True, blank=True)
     flg_seat = models.CharField('座席不要フラグ', max_length=255, null=True, blank=True, default=0)
-    pic = models.ImageField(upload_to='media', null=True, blank=True)
-    icon = models.ImageField(upload_to='media', null=True, blank=True)
 
     is_staff = models.BooleanField(
         _('staff status'),

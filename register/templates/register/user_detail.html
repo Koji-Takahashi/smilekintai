@@ -21,14 +21,6 @@
                     <table class="table">
                         <tbody>
                             <tr>
-                                {% if user.pic %}
-                                <td><img src="https://saas-media.s3-ap-northeast-1.amazonaws.com/static/{{ user.pic }}" style="width: 100px;"></td>
-                                {% endif %}
-                                {% if user.icon %}
-                                <td><img src="https://saas-media.s3-ap-northeast-1.amazonaws.com/static/{{ user.icon }}" style="width: 100px;"></td>
-                                {% endif %}
-                            </tr>
-                            <tr>
                                 <th>姓</th>
                                 <td>{{ user.last_name }}</td>
                             </tr>
