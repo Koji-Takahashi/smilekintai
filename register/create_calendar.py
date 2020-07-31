@@ -1,6 +1,7 @@
 from .models import Attendance, User, Message
 from datetime import timedelta
-
+# import locale
+# locale.setlocale(locale.LC_TIME, 'ja_JP.UTF-8')
 
 def create_calendar(date_start,date_end,id):
     if User.objects.filter(id=id).exists():

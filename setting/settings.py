@@ -26,7 +26,7 @@ MEDIA_URL = '/media/file/'
 
 DEBUG = False
 
-SESSION_COOKIE_AGE = 600 # on hour in seconds
+SESSION_COOKIE_AGE = 3600 # on hour in seconds
 
 ALLOWED_HOSTS = ['*']
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
+    'storages',
     'django.contrib.humanize',
 ]
 
