@@ -20,12 +20,14 @@
                     </div>
                     <table class="table">
                         <tbody>
-                            {% if user.pic %}
                             <tr>
-                                <th>画像</th>
-                                <td><img src="https://django-media.s3-ap-northeast-1.amazonaws.com/static/{{ user.pic }}" style="width: 100px;"></td>
+                                {% if user.pic %}
+                                <td><img src="https://saas-media.s3-ap-northeast-1.amazonaws.com/static/{{ user.pic }}" style="width: 100px;"></td>
+                                {% endif %}
+                                {% if user.icon %}
+                                <td><img src="https://saas-media.s3-ap-northeast-1.amazonaws.com/static/{{ user.icon }}" style="width: 100px;"></td>
+                                {% endif %}
                             </tr>
-                            {% endif %}
                             <tr>
                                 <th>姓</th>
                                 <td>{{ user.last_name }}</td>
