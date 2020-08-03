@@ -180,6 +180,9 @@ if not DEBUG:
     AWS_LOCATION = 'static'
     AWS_DEFAULT_ACL = None
 
+    S3_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    MEDIA_URL = S3_URL
 
 if 'test' in sys.argv:
        DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
