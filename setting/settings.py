@@ -132,6 +132,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
 # カスタムユーザーを使う
@@ -145,6 +148,8 @@ LOGOUT_REDIRECT_URL='register:login'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 
 # 追加
 try:
@@ -162,6 +167,19 @@ if not DEBUG:
     EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
     EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
     EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    AWS_LOCATION = 'static'
+    AWS_DEFAULT_ACL = None
+
 
 if 'test' in sys.argv:
        DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
