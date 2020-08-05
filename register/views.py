@@ -271,17 +271,20 @@ class EmailChangeComplete(LoginRequiredMixin, generic.TemplateView):
             request.user.save()
             return super().get(request, **kwargs)
 
+
 def create_slack_menber(request, div):
     """ユーザー一括登録"""
     create_user(div);
     return HttpResponse('Create User')
+
 
 @login_required()
 def index(request):
     """TOPメニュー"""
     return render(request,
                   'register/index.html',  # 使用するテンプレート
-                    )  # テンプレートに渡すデータ
+                   )  # テンプレートに渡すデータ
+
 
 @login_required()
 def set_slack_id(request, id=None, name=None):
@@ -309,6 +312,7 @@ def set_slack_id(request, id=None, name=None):
 
     return redirect('register:user_update', id)
 
+
 @login_required()
 def company(request, id=None, value=None):
     """会社情報入力"""
@@ -335,6 +339,7 @@ def company(request, id=None, value=None):
     return render(request,
                   'register/company.html', {'form':company})  # テンプレートに渡すデータ
 
+
 @login_required()
 def status(request, pk, status):
     """ステータス手動更新ボタン"""
@@ -354,6 +359,7 @@ def status(request, pk, status):
     return render(request,
                   'register/index.html', )  # テンプレートに渡すデータ
 
+
 @login_required()
 def comment_list(request, id=None):
     """社員一覧・メッセージ一覧"""
@@ -361,15 +367,15 @@ def comment_list(request, id=None):
         api_key = control.objects.filter(code=id)[0].API_key
         channel_id = control.objects.filter(code=id)[0].channelId
         if not api_key == 'None' and not channel_id == 'None' and not api_key == None and not channel_id == None:
-            get_slack(id); # salckメッセージ取込
-    update_status(id); # ステータス更新
+            get_slack(id)  # salckメッセージ取込
+    update_status(id)  # ステータス更新
 
     slacks = User.objects.filter(div=id)
     keyword = request.GET.get('query')
     key = request.GET.get('key')
     if keyword:
         slacks = slacks.filter(
-            Q(last_name__contains=keyword)
+            Q(last_name__icontains=keyword)
         )
 
     return render(request,

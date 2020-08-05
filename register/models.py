@@ -7,6 +7,7 @@ from django.utils import timezone
 import uuid
 
 
+# Create your models here.
 class CustomUserManager(UserManager):
     """ユーザーマネージャー"""
     use_in_migrations = True
@@ -83,7 +84,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         """Return the first_name plus the last_name, with a space in
         between."""
-        full_name = '%s %s' % (self.first_name, self.last_name)
+        full_name = '%s %s' % (self.last_name, self.first_name)
         return full_name.strip()
 
     def get_short_name(self):
@@ -97,6 +98,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def username(self):
         return self.email
+
 
 class control(models.Model):
     """"会社情報"""
@@ -118,14 +120,14 @@ class control(models.Model):
     def __str__(self):
         return self.name;
 
-# Create your models here.
+
 class Message(models.Model):
     """Message"""
     user_code = models.CharField('code', max_length=255) # User::id
-    post_time =  models.CharField('postTime', max_length=255)
+    post_time = models.CharField('postTime', max_length=255)
     message = models.TextField('message', max_length=50000, blank=True)
     slack_comment_id = models.CharField('message', max_length=255, blank=True)
-    encode_time =  models.DateTimeField('postTimes', blank=True, null=True )
+    encode_time = models.DateTimeField('postTimes', blank=True, null=True )
     div = models.CharField('自社区分', max_length=255, null=True, blank=True)
     result = models.CharField('判定結果', max_length=255, null=True, blank=True)
     post_date = models.DateField('postDate', blank=True, null=True )
@@ -133,6 +135,7 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+
 
 class Attendance(models.Model):
     """Seats"""
@@ -175,11 +178,12 @@ class Attendance(models.Model):
     def __str__(self):
         return self.user_id
 
+
 class FMLOGIN(models.Model):
     """FMLOGIN"""
     longitude = models.CharField('経度', max_length=255, blank=True, null=True)
     latitude = models.CharField('緯度', max_length=255, blank=True, null=True)
-    IP_address =  models.CharField('システムIPアドレス', max_length=255, blank=True, null=True)
+    IP_address = models.CharField('システムIPアドレス', max_length=255, blank=True, null=True)
     NIC = models.CharField('システムNICアドレス', max_length=255, blank=True, null=True)
     NPC = models.CharField('ネットワークプロトコル', max_length=255, blank=True, null=True)
     SPH = models.CharField('システムプラットホーム', max_length=255, blank=True, null=True)
