@@ -1,3 +1,4 @@
+from calendar import c
 import os
 from pyexpat.errors import messages
 
@@ -22,6 +23,9 @@ from .forms import (
 )
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+
+from django.db.models.functions import Concat
+from django.db.models import Value as V
 
 """モデル・フォーム"""
 from .models import Message, Attendance, control, User, FMLOGIN
@@ -364,17 +368,17 @@ def comment_list(request, id=None):
             get_slack(id); # salckメッセージ取込
     update_status(id); # ステータス更新
 
-    slacks = User.objects.filter(div=id)
+    users = User.objects.filter(div=id)
     keyword = request.GET.get('query')
-    key = request.GET.get('key')
     if keyword:
-        slacks = slacks.filter(
-            Q(last_name__contains=keyword)
-        )
-
+        users = users.annotate(
+            full_name=Concat('first_name', V(' '), 'last_name')
+            ).filter(
+                Q(full_name__contains=keyword)
+                ) 
     return render(request,
                   'register/slack_index.html',  # 使用するテンプレート
-                  {'slacks': slacks}, )  # テンプレートに渡すデータ
+                  {'slacks':users}, )  # テンプレートに渡すデータ
 
 @login_required()
 def user_list(request, id=None):
