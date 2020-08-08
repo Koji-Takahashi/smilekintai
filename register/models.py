@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     department = models.CharField('部署', max_length=255, null=True, blank=True)
     company_name = models.CharField('会社名', max_length=255, null=True, blank=True)
     tel = models.CharField('電話番号', max_length=255, null=True, blank=True)
-    postalcode = models.CharField('郵便番号', max_length=255, null=True, blank=True)
+    postal_code = models.CharField('郵便番号', max_length=255, null=True, blank=True)
     address = models.CharField('住所', max_length=255, null=True, blank=True)
     flg_seat = models.CharField('座席不要フラグ', max_length=255, null=True, blank=True, default=0)
 
