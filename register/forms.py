@@ -100,4 +100,4 @@ class ControlForm(forms.ModelForm):
 
     class Meta:
         model = control
-        fields = ('name', 'postal_code','address','tel','memo','API_key','channelId','id', )
+        fields = ('name', 'postal_code', 'address', 'tel', 'memo', 'API_key', 'channelId', 'id', )
