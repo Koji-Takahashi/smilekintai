@@ -43,7 +43,7 @@ class UserCreateForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('email',)
+        fields = ('last_name', 'first_name','company_name', 'postalcode', 'address', 'tel','email', 'department', )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
