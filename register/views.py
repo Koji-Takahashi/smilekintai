@@ -52,6 +52,8 @@ from django.core import serializers
 
 # ページング処理
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
 def paginate_queryset(request, queryset, count):
     """Pageオブジェクトを返す。
 
@@ -77,7 +79,9 @@ def paginate_queryset(request, queryset, count):
         page_obj = paginator.page(paginator.num_pages)
     return page_obj
 
+
 User = get_user_model()
+
 
 @method_decorator(login_required, name='dispatch')
 class Top(generic.TemplateView):
@@ -173,10 +177,12 @@ class OnlyYouMixin(UserPassesTestMixin):
         user = self.request.user
         return user.pk == self.kwargs['pk'] or user.is_superuser
 
+
 class UserDetail(OnlyYouMixin, generic.DetailView):
     """ユーザーの詳細ページ"""
     model = User
     template_name = 'register/user_detail.html'  # デフォルトユーザーを使う場合に備え、きちんとtemplate名を書く
+
 
 class UserUpdate(OnlyYouMixin, generic.UpdateView):
     """ユーザー情報更新ページ"""
@@ -187,15 +193,18 @@ class UserUpdate(OnlyYouMixin, generic.UpdateView):
     def get_success_url(self):
         return resolve_url('register:user_detail', pk=self.kwargs['pk'])
 
+
 class PasswordChange(PasswordChangeView):
     """パスワード変更ビュー"""
     form_class = MyPasswordChangeForm
     success_url = reverse_lazy('register:password_change_done')
     template_name = 'register/password_change.html'
 
+
 class PasswordChangeDone(PasswordChangeDoneView):
     """パスワード変更しました"""
     template_name = 'register/password_change_done.html'
+
 
 class PasswordReset(PasswordResetView):
     """パスワード変更用URLの送付ページ"""
@@ -205,9 +214,11 @@ class PasswordReset(PasswordResetView):
     form_class = MyPasswordResetForm
     success_url = reverse_lazy('register:password_reset_done')
 
+
 class PasswordResetDone(PasswordResetDoneView):
     """パスワード変更用URLを送りましたページ"""
     template_name = 'register/password_reset_done.html'
+
 
 class PasswordResetConfirm(PasswordResetConfirmView):
     """新パスワード入力ページ"""
@@ -215,9 +226,11 @@ class PasswordResetConfirm(PasswordResetConfirmView):
     success_url = reverse_lazy('register:password_reset_complete')
     template_name = 'register/password_reset_confirm.html'
 
+
 class PasswordResetComplete(PasswordResetCompleteView):
     """新パスワード設定しましたページ"""
     template_name = 'register/password_reset_complete.html'
+
 
 class EmailChange(LoginRequiredMixin, generic.FormView):
     """メールアドレスの変更"""
@@ -275,10 +288,12 @@ class EmailChangeComplete(LoginRequiredMixin, generic.TemplateView):
             request.user.save()
             return super().get(request, **kwargs)
 
+
 def create_slack_menber(request, div):
     """ユーザー一括登録"""
     create_user(div);
     return HttpResponse('Create User')
+
 
 @login_required()
 def index(request):
@@ -286,6 +301,7 @@ def index(request):
     return render(request,
                   'register/index.html',  # 使用するテンプレート
                     )  # テンプレートに渡すデータ
+
 
 @login_required()
 def set_slack_id(request, id=None, name=None):
@@ -313,6 +329,7 @@ def set_slack_id(request, id=None, name=None):
 
     return redirect('register:user_update', id)
 
+
 @login_required()
 def company(request, id=None, value=None):
     """会社情報入力"""
@@ -339,6 +356,7 @@ def company(request, id=None, value=None):
     return render(request,
                   'register/company.html', {'form':company})  # テンプレートに渡すデータ
 
+
 @login_required()
 def status(request, pk, status):
     """ステータス手動更新ボタン"""
@@ -352,11 +370,12 @@ def status(request, pk, status):
         m = Message(user_code=user.id, message=status_msg,
                     encode_time=time_now, div=user.div, post_date=today, post_min=time_now.time().strftime("%H:%M"), result=status)
         m.save()
-        update_status(user.div);
+        update_status(user.div)
 
     """TOPメニュー"""
     return render(request,
                   'register/index.html', )  # テンプレートに渡すデータ
+
 
 @login_required()
 def comment_list(request, id=None):
@@ -365,8 +384,8 @@ def comment_list(request, id=None):
         api_key = control.objects.filter(code=id)[0].API_key
         channel_id = control.objects.filter(code=id)[0].channelId
         if not api_key == 'None' and not channel_id == 'None' and not api_key == None and not channel_id == None:
-            get_slack(id); # salckメッセージ取込
-    update_status(id); # ステータス更新
+            get_slack(id)  # salckメッセージ取込
+    update_status(id)  # ステータス更新
 
     users = User.objects.filter(div=id)
     keyword = request.GET.get('query')
@@ -378,7 +397,8 @@ def comment_list(request, id=None):
                 ) 
     return render(request,
                   'register/slack_index.html',  # 使用するテンプレート
-                  {'slacks':users}, )  # テンプレートに渡すデータ
+                  {'slacks': users}, )  # テンプレートに渡すデータ
+
 
 @login_required()
 def user_list(request, id=None):
@@ -391,6 +411,7 @@ def user_list(request, id=None):
     return render(request,
                   'register/user_list.html',  # 使用するテンプレート
                   {'users': users}, )  # テンプレートに渡すデータ
+
 
 @login_required()
 def user_edit(request, id=None, pk=None):
@@ -429,6 +450,7 @@ def user_del(request, pk):
 
     return redirect('register:user_list')
 
+
 @login_required()
 def history(request, id=None):
     d = datetime.date.today()
@@ -443,6 +465,7 @@ def history(request, id=None):
     return render(request,
                   'register/history.html', dict)  # テンプレートに渡すデータ
 
+
 def api_employee(request):
     code = request.GET.get('code')
     if code == None or code == None:
@@ -455,6 +478,7 @@ def api_employee(request):
         result = 'Error:No Records!'
         return HttpResponse(result)
     return HttpResponse(json_data, content_type="text/json-comment-filtered")
+
 
 def api_kintai(request):
     code = request.GET.get('code')
@@ -488,6 +512,7 @@ def api_kintai(request):
         result = 'Error:No Records'
         return HttpResponse(result)
     return HttpResponse(json_data, content_type="text/json-comment-filtered")
+
 
 def api_location(request):
     # 引数を変数に格納
